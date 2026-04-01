@@ -1,0 +1,119 @@
+% !TEX program = xelatex
+\documentclass[14pt, a4paper]{extreport}
+
+%% Шрифты и язык
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+% TODO: дописать про LSTM
+%% Поля страницы
+\usepackage[
+  a4paper,
+  top=2cm,
+  bottom=2cm,
+  left=3cm,
+  right=1.5cm
+]{geometry}
+
+%% Межстрочный интервал 1.5
+\usepackage{setspace}
+\onehalfspacing
+
+%% Отступ первой строки абзаца
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+
+%% Заголовки глав и разделов
+\usepackage{titlesec}
+\titleformat{\chapter}[block]
+  {\normalfont\large\bfseries\centering}
+  {\chaptername\ \thechapter.}{0.5em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{12pt}
+
+\titleformat{\section}
+  {\normalfont\normalsize\bfseries}
+  {\thesection}{0.5em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+%% Содержание
+\usepackage{tocloft}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforechapskip}{4pt}
+
+%% Графика и таблицы
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\graphicspath{{images/}}
+
+%% Математика
+\usepackage{amsmath, amssymb}
+
+%% Листинги кода
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{orange}
+}
+
+%% Гиперссылки
+\usepackage[hidelinks]{hyperref}
+
+%% Нумерация страниц — снизу по центру
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+%% Библиография
+\usepackage[
+  backend=biber,
+  style=gost-numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bibliography.bib}
+
+% -------------------------------------------------------
+\begin{document}
+
+%% Титульный лист
+%\include{chapters/titlepage}
+
+%% Содержание
+\tableofcontents
+\newpage
+
+%% Введение
+\include{chapters/introduction}
+
+%% Глава 1
+\include{chapters/chapter1}
+
+%% Глава 2
+\include{chapters/chapter2}
+
+%% Глава 3
+\include{chapters/chapter3}
+
+%% Заключение
+\include{chapters/conclusion}
+
+%% Список литературы
+\printbibliography[title={Список литературы}]
+\addcontentsline{toc}{chapter}{Список литературы}
+
+%% Приложения
+\include{chapters/appendix}
+
+\end{document}
