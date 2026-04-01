@@ -7,7 +7,7 @@
 \usepackage{polyglossia}
 \setmainlanguage{russian}
 \setotherlanguage{english}
-% TODO: дописать про LSTM
+
 %% Поля страницы
 \usepackage[
   a4paper,
@@ -83,7 +83,8 @@
   sorting=none
 ]{biblatex}
 \addbibresource{bibliography.bib}
-
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\normalfont\large\bfseries}
 % -------------------------------------------------------
 \begin{document}
 
@@ -91,7 +92,11 @@
 %\include{chapters/titlepage}
 
 %% Содержание
+\renewcommand{\contentsname}{Содержание}
+\begingroup
+\normalsize
 \tableofcontents
+\endgroup
 \newpage
 
 %% Введение
