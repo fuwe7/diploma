@@ -4,9 +4,15 @@
 %% Шрифты и язык
 \usepackage{fontspec}
 \setmainfont{Times New Roman}
+
+\setmonofont{Courier New}
+
 \usepackage{polyglossia}
 \setmainlanguage{russian}
 \setotherlanguage{english}
+
+\newfontfamily\cyrillicfont{Times New Roman}
+\newfontfamily\cyrillicfonttt{Times New Roman}
 
 %% Поля страницы
 \usepackage[
@@ -47,6 +53,8 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{longtable}
+
+
 \graphicspath{{images/}}
 
 %% Математика
@@ -68,6 +76,12 @@
 
 %% Гиперссылки
 \usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black, % Внутренние ссылки черные
+    urlcolor=cyan    % Внешние ссылки синие (или тоже black, если требуют строгости)
+}
+
 
 %% Нумерация страниц — снизу по центру
 \usepackage{fancyhdr}

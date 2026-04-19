@@ -5,3 +5,11 @@
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+# Виртуальное окружение
+.venv/
+venv/
+ENV/
+
+# Настройки PyCharm / IntelliJ IDEA
+python/collect-usd-rates/.idea/
+python/collect-usd-rates/*.iml
