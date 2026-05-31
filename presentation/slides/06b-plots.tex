@@ -1,0 +1,20 @@
+\begin{frame}[shrink=10]{Графики прогнозов}
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \begin{center}
+      \textbf{\color{primary}ARIMA (static)}\\[4pt]
+      \includegraphics[width=\textwidth]{images/arima_static_forecast.png}
+    \end{center}
+
+    \column{0.48\textwidth}
+    \begin{center}
+      \textbf{\color{primary}LSTM}\\[4pt]
+      \includegraphics[width=\textwidth]{images/lstm_forecast.png}
+    \end{center}
+  \end{columns}
+
+  \vspace{0.2cm}
+  \begin{tcolorbox}[infobox]
+    \small \textbf{Наблюдение:} LSTM точно следует за реальным курсом, тогда как статическая ARIMA сходится к линейному тренду.
+  \end{tcolorbox}
+\end{frame}

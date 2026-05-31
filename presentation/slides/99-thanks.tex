@@ -1,0 +1,27 @@
+% ─── Финальный слайд «Спасибо за внимание» ────────────────────────────────
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[primary] (current page.north west) rectangle (current page.south east);
+    \fill[accent] (current page.south west) rectangle
+      ([yshift=6pt]current page.south east);
+    \fill[white, opacity=0.05] ([xshift=-2cm,yshift=-2cm]current page.north east)
+      circle (5cm);
+  \end{tikzpicture}
+
+  \begin{center}
+    \vfill
+    {\color{white}\fontsize{24}{28}\selectfont\bfseries Спасибо за внимание!}\\[0.5cm]
+    {\color{accent}\rule{10cm}{1.5pt}}\\[0.5cm]
+    {\color{white!80}\large Сравнение эффективности нейросетей и классических\\статистических моделей в прогнозировании курса валют}\\[0.3cm]
+    {\color{white!60}\normalsize Автор | Группа}
+    \vfill
+    \begin{tcolorbox}[
+      enhanced, boxrule=1pt, colframe=accent, colback=accent!20,
+      width=10cm, center, rounded corners, left=10pt, right=10pt
+    ]
+      \color{darktext}\small
+      \textbf{Главный вывод:}~При честном сравнении (однократное обучение) \textbf{LSTM} превосходит классические модели --- MAPE 0,33\% vs 0,88\% (RF) vs 1,89\% (ARIMA static)
+    \end{tcolorbox}
+    \vspace{0.5cm}
+  \end{center}
+\end{frame}

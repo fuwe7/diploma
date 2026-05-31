@@ -1,0 +1,26 @@
+% ─── Титульный слайд ────────────────────────────────────────────────────────
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[primary] (current page.north west) rectangle (current page.south east);
+    \fill[accent] (current page.south west) rectangle
+      ([yshift=6pt]current page.south east);
+    \fill[white, opacity=0.05] ([xshift=-2cm,yshift=-2cm]current page.north east)
+      circle (5cm);
+    \fill[secondary, opacity=0.3] ([xshift=1cm,yshift=2cm]current page.south west)
+      circle (3cm);
+  \end{tikzpicture}
+
+  \vspace{0.8cm}
+  {\color{accent}\rule{\textwidth}{2pt}}
+  \vspace{0.3cm}
+
+  \begin{center}
+    {\color{white}\fontsize{18}{22}\selectfont\bfseries
+      Сравнение эффективности нейросетей\\и классических статистических моделей\\в прогнозировании курса валют}\\[10pt]
+    {\color{white!80}\large Выпускная квалификационная работа}\\[16pt]
+    {\color{accent}\rule{8cm}{1pt}}\\[10pt]
+    {\color{white!70}\normalsize Багаев Эмир | Группа: МИ-1}\\[6pt]
+    {\color{white!60}\small Научный руководитель: Эшмаматова Д. Б.}\\[4pt]
+    {\color{white!60}\small 2026~г.}
+  \end{center}
+\end{frame}

@@ -1,0 +1,36 @@
+% ─── Данные и методология ─────────────────────────────────────────────────
+\begin{frame}[shrink=10]{Данные и предобработка}
+
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \begin{block}{\faDatabase~Набор данных}
+      \small
+      \begin{itemize}
+        \setlength\itemsep{2pt}
+        \item \textbf{Источник:} ЦБ Республики Узбекистан
+        \item \textbf{Пара:} USD/UZS (официальный курс)
+        \item \textbf{Период:} сентябрь 2017 --- сентябрь 2025
+        \item \textbf{Объём:} 2\,087 наблюдений (рабочие дни)
+        \item \textbf{Пропуски:} отсутствуют
+      \end{itemize}
+    \end{block}
+
+    \column{0.48\textwidth}
+    \begin{block}{\faCogs~Предобработка}
+      \small
+      \begin{itemize}
+        \setlength\itemsep{2pt}
+        \item Отсечение данных до 2017~г. (либерализация рынка)
+        \item MinMax-нормализация $[0, 1]$
+        \item Формирование лаговых признаков
+        \item Разделение: 80\% train / 20\% test
+        \item Хронологический порядок (без перемешивания)
+      \end{itemize}
+    \end{block}
+  \end{columns}
+
+  \vspace{0.3cm}
+  \begin{tcolorbox}[infobox]
+    \small \textbf{Почему с 2017~г.?} До либерализации курс фиксировался административно. Включение этих данных внесло бы структурный сдвиг, искажающий обучение моделей.
+  \end{tcolorbox}
+\end{frame}

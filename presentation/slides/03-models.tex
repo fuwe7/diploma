@@ -1,0 +1,40 @@
+% ─── Описание моделей ─────────────────────────────────────────────────────
+\begin{frame}[shrink=10]{Исследуемые модели}
+
+  \begin{columns}[T]
+    \column{0.32\textwidth}
+    \begin{tcolorbox}[infobox, equal height group=models]
+      \textbf{\color{primary}\faChartLine\ ARIMA}\\[6pt]
+      \small
+      \textcolor{accent}{\faAngleRight}~Классическая статистическая модель\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Авторегрессия + скользящее среднее\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Дифференциация для стационарности\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Два режима: rolling и static
+    \end{tcolorbox}
+
+    \column{0.32\textwidth}
+    \begin{tcolorbox}[infobox, equal height group=models]
+      \textbf{\color{primary}\faTree\ Random Forest}\\[6pt]
+      \small
+      \textcolor{accent}{\faAngleRight}~Ансамбль деревьев решений\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Bagging + случайные признаки\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Устойчивость к шуму\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Лаговые признаки на входе
+    \end{tcolorbox}
+
+    \column{0.32\textwidth}
+    \begin{tcolorbox}[infobox, equal height group=models]
+      \textbf{\color{primary}\faBrain\ LSTM}\\[6pt]
+      \small
+      \textcolor{accent}{\faAngleRight}~Рекуррентная нейросеть\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Шлюзы: forget, input, output\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Долгосрочная память\\[3pt]
+      \textcolor{accent}{\faAngleRight}~50 нейронов, окно = 10 дней
+    \end{tcolorbox}
+  \end{columns}
+
+  \vspace{0.3cm}
+  \begin{tcolorbox}[successbox]
+    \small \textbf{Ключевой вопрос:} способны ли нейросети с нелинейным моделированием превзойти проверенные временем статистические методы на реальных данных курса USD/UZS?
+  \end{tcolorbox}
+\end{frame}

@@ -1,0 +1,31 @@
+% ─── Rolling vs Static ARIMA ──────────────────────────────────────────────
+\begin{frame}[shrink=10]{Почему ARIMA (rolling) обгоняет всех?}
+
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \begin{tcolorbox}[formulabox, title={\faSync\ Rolling Forecast}]
+      \small
+      На каждом шаге $t$:\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Добавляет \textbf{фактическое} $y_t$ в обучающую выборку\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Переобучает модель заново\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Прогнозирует $\hat{y}_{t+1}$\\[6pt]
+      \textbf{Результат:} MAPE = \textcolor{success}{\textbf{0,15\%}}\\
+      Модель всегда <<видит>> вчерашний курс
+    \end{tcolorbox}
+
+    \column{0.48\textwidth}
+    \begin{tcolorbox}[warnbox]
+      \small \textbf{\faLock\ Static (без переобучения)}\\[6pt]
+      \textcolor{accent}{\faAngleRight}~Обучается \textbf{один раз} на train\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Прогнозирует весь test без обновления\\[3pt]
+      \textcolor{accent}{\faAngleRight}~Прогноз сходится к линейному тренду\\[6pt]
+      \textbf{Результат:} MAPE = \textcolor{danger}{\textbf{1,89\%}}\\
+      В 12 раз хуже rolling
+    \end{tcolorbox}
+  \end{columns}
+
+  \vspace{0.3cm}
+  \begin{tcolorbox}[successbox]
+    \small \textbf{Вывод:} ARIMA (rolling) побеждает \textit{не благодаря модели}, а благодаря \textbf{методологии переобучения}. При равных условиях (однократное обучение) \textbf{LSTM превосходит} и RF, и ARIMA --- MAPE 0,33\% vs 0,88\% и 1,89\%.
+  \end{tcolorbox}
+\end{frame}

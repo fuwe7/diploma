@@ -1,0 +1,26 @@
+% ─── Актуальность, цель и задачи ──────────────────────────────────────────
+\begin{frame}[shrink=10]{Актуальность, цель и задачи}
+
+  \begin{tcolorbox}[formulabox, title={\faExclamationCircle\ Актуальность}]
+    \small Прогнозирование валютных курсов --- ключевая задача для банков, инвесторов и госуправления. Финансовые ряды \textbf{нестационарны}, \textbf{нелинейны} и содержат высокий уровень шума. В литературе \textit{нет консенсуса}: превосходят ли нейросети классические модели.
+  \end{tcolorbox}
+
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \textbf{\color{primary}Цель работы:}
+    \begin{tcolorbox}[infobox]
+      \small Сравнить эффективность классических статистических моделей и нейросетевых методов при прогнозировании курса USD/UZS.
+    \end{tcolorbox}
+
+    \column{0.48\textwidth}
+    \textbf{\color{primary}Задачи:}
+    \begin{itemize}\small
+      \setlength\itemsep{2pt}
+      \item Изучить теорию временных рядов
+      \item Реализовать ARIMA, Random Forest, LSTM
+      \item Провести эксперименты на данных ЦБ РУз
+      \item Сравнить модели по MAE, RMSE, MAPE
+    \end{itemize}
+  \end{columns}
+\end{frame}

@@ -1,0 +1,109 @@
+% ════════════════════════════════════════════════════════════════════════════
+%  preamble.tex
+%  Преамбула: пакеты, тема, цвета, стили tcolorbox, шапка/подвал.
+%  Менять только если нужно изменить ОФОРМЛЕНИЕ. Контент презентации
+%  лежит в main.tex (метаданные) и в slides/ (сами слайды).
+% ════════════════════════════════════════════════════════════════════════════
+
+% ─── Пакеты ─────────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows, fit, calc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fontawesome5}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% ─── Тема и цветовая схема ──────────────────────────────────────────────────
+% TODO (опционально): чтобы поменять «фирменный» цвет всей презентации,
+% достаточно изменить RGB у primary / secondary / accent ниже.
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\definecolor{primary}{RGB}{13, 71, 161}     % основной (синий)
+\definecolor{secondary}{RGB}{21, 101, 192}  % вторичный
+\definecolor{accent}{RGB}{255, 143, 0}      % акцент (оранжевый)
+\definecolor{success}{RGB}{27, 94, 32}      % зелёный (успех)
+\definecolor{danger}{RGB}{183, 28, 28}      % красный (предупреждение)
+\definecolor{light}{RGB}{227, 242, 253}     % светлый фон блоков
+\definecolor{darktext}{RGB}{13, 13, 13}
+\definecolor{mygray}{RGB}{96, 125, 139}
+
+\setbeamercolor{palette primary}{bg=primary, fg=white}
+\setbeamercolor{palette secondary}{bg=secondary, fg=white}
+\setbeamercolor{palette tertiary}{bg=primary!80, fg=white}
+\setbeamercolor{palette quaternary}{bg=primary, fg=white}
+\setbeamercolor{structure}{fg=primary}
+\setbeamercolor{frametitle}{bg=primary, fg=white}
+\setbeamercolor{title}{bg=primary, fg=white}
+\setbeamercolor{block title}{bg=primary, fg=white}
+\setbeamercolor{block body}{bg=light}
+\setbeamercolor{block title alerted}{bg=danger, fg=white}
+\setbeamercolor{block body alerted}{bg=danger!10}
+\setbeamercolor{block title example}{bg=success, fg=white}
+\setbeamercolor{block body example}{bg=success!10}
+\setbeamercolor{item}{fg=primary}
+\setbeamercolor{subitem}{fg=secondary}
+
+\setbeamerfont{title}{size=\Large, series=\bfseries}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+
+\setbeamertemplate{navigation symbols}{}
+
+% ─── Подвал слайда ──────────────────────────────────────────────────────────
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm]{palette primary}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.5ex,dp=1.125ex,center]{palette secondary}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.5ex,dp=1.125ex,rightskip=.3cm,right]{palette primary}%
+      \usebeamerfont{date in head/foot}
+      \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}%
+  }%
+}
+
+% ─── Стили цветных «карточек» (tcolorbox) ───────────────────────────────────
+% В слайдах используются 4 готовых стиля:
+%   infobox    — синяя полоса слева (нейтральная информация)
+%   formulabox — оранжевая рамка   (формулы / ключевые определения)
+%   warnbox    — красная полоса    (предупреждения, минусы)
+%   successbox — зелёная полоса    (плюсы, выводы)
+\tcbset{
+  infobox/.style={
+    enhanced, boxrule=0pt, frame hidden,
+    colback=light, left=4pt, right=4pt, top=2pt, bottom=2pt,
+    borderline west={3pt}{0pt}{primary}
+  },
+  formulabox/.style={
+    enhanced, boxrule=1pt,
+    colframe=accent, colback=accent!10,
+    left=4pt, right=4pt, top=2pt, bottom=2pt,
+    rounded corners
+  },
+  warnbox/.style={
+    enhanced, boxrule=0pt, frame hidden,
+    colback=danger!8, left=4pt, right=4pt, top=2pt, bottom=2pt,
+    borderline west={3pt}{0pt}{danger}
+  },
+  successbox/.style={
+    enhanced, boxrule=0pt, frame hidden,
+    colback=success!8, left=4pt, right=4pt, top=2pt, bottom=2pt,
+    borderline west={3pt}{0pt}{success}
+  }
+}
