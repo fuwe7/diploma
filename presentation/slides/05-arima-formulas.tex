@@ -15,13 +15,15 @@
     \end{tcolorbox}
 
     \column{0.48\textwidth}
-    \begin{tcolorbox}[formulabox, title={\faBrain\ Шлюзы LSTM}, equal height group=formulas]
+    \begin{tcolorbox}[formulabox, title={\faBrain\ LSTM: обновление памяти}, equal height group=formulas]
+      \[
+        C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t
+      \]
       \small
-      \textbf{Forget:}~$f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)$\\[3pt]
-      \textbf{Input:}~$i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i)$\\[3pt]
-      \textbf{Cell:}~$C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t$\\[3pt]
-      \textbf{Output:}~$o_t = \sigma(W_o \cdot [h_{t-1}, x_t] + b_o)$\\[3pt]
-      $h_t = o_t \odot \tanh(C_t)$
+      $f_t$~--- шлюз забывания (forget gate)\\
+      $i_t$~--- шлюз входа (input gate)\\
+      $C_t$~--- состояние ячейки (память)\\[4pt]
+      Шлюзы $\sigma(\cdot)\in[0,1]$ регулируют поток информации.
     \end{tcolorbox}
   \end{columns}
 
