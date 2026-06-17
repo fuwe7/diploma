@@ -3,7 +3,7 @@
 \renewcommand{\thesection}{\Asbuk{section}}
 \setcounter{section}{0}
 
-\section{Приложение А. Код модели LSTM}
+\section*{Код модели LSTM}
 \label{app:lstm}
 
 \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
@@ -83,4 +83,190 @@ mape = np.mean(np.abs(
     (y_test_real - predictions_real) / y_test_real
 )) * 100
 print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}, MAPE: {mape:.2f}%")
+\end{lstlisting}
+
+\section*{Код модели ARIMA (rolling forecast)}
+\label{app:arima_rolling}
+ 
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
+import pandas as pd
+import numpy as np
+from statsmodels.tsa.arima.model import ARIMA
+from pmdarima import auto_arima
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+ 
+# Загрузка данных
+df = pd.read_csv("data/processed_data.csv")
+df['date'] = pd.to_datetime(df['date'])
+ 
+# Train / Test (80 / 20)
+train_size = int(len(df) * 0.8)
+train_series = df['usd_uzs'][:train_size]
+test_series  = df['usd_uzs'][train_size:]
+ 
+# Автоматический подбор порядка (p, d, q) по AIC
+auto_model = auto_arima(
+    train_series, seasonal=False, stepwise=True,
+    information_criterion='aic', trace=True
+)
+best_order = auto_model.order
+print(f"Лучший порядок ARIMA: {best_order}")
+ 
+# Rolling forecast: на каждом шаге модель переобучается
+# на истории, дополненной РЕАЛЬНЫМ значением
+history = list(train_series)
+predictions = []
+for real_value in test_series:
+    model_fit = ARIMA(history, order=best_order).fit()
+    yhat = model_fit.forecast(steps=1)[0]
+    predictions.append(yhat)
+    history.append(real_value)   # добавляем реальное значение, не прогноз
+ 
+forecast = pd.Series(predictions, index=test_series.index)
+ 
+# Метрики
+mae  = mean_absolute_error(test_series, forecast)
+rmse = np.sqrt(mean_squared_error(test_series, forecast))
+mape = np.mean(np.abs((test_series.values - forecast.values)
+                      / test_series.values)) * 100
+print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}, MAPE: {mape:.2f}%")
+\end{lstlisting}
+ 
+\section*{Код модели ARIMA (static, без переобучения)}
+\label{app:arima_static}
+ 
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
+import pandas as pd
+import numpy as np
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+ 
+# Загрузка данных
+df = pd.read_csv("data/processed_data.csv")
+df['date'] = pd.to_datetime(df['date'])
+ 
+# Train / Test (80 / 20)
+train_size = int(len(df) * 0.8)
+train_series = df['usd_uzs'][:train_size]
+test_series  = df['usd_uzs'][train_size:]
+ 
+# Используется тот же порядок, что и в rolling forecast
+best_order = (4, 1, 2)
+ 
+# Модель обучается ОДИН раз на train
+model_fit = ARIMA(train_series, order=best_order).fit()
+ 
+# Прогноз сразу на весь тестовый период (без обновления данных)
+predictions = model_fit.forecast(steps=len(test_series))
+forecast = pd.Series(predictions.values, index=test_series.index)
+ 
+# Метрики
+mae  = mean_absolute_error(test_series, forecast)
+rmse = np.sqrt(mean_squared_error(test_series, forecast))
+mape = np.mean(np.abs((test_series.values - forecast.values)
+                      / test_series.values)) * 100
+print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}, MAPE: {mape:.2f}%")
+\end{lstlisting}
+ 
+\section*{Код модели Random Forest}
+\label{app:rf}
+ 
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
+import pandas as pd
+import numpy as np
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+ 
+# Загрузка данных
+df = pd.read_csv("data/processed_data.csv")
+df['date'] = pd.to_datetime(df['date'])
+ 
+# Признаки — лаги за 7 предыдущих дней
+features = ['lag_1','lag_2','lag_3','lag_4','lag_5','lag_6','lag_7']
+X = df[features]
+y = df['usd_uzs']
+ 
+# Train / Test (80 / 20)
+train_size = int(len(df) * 0.8)
+X_train, X_test = X[:train_size], X[train_size:]
+y_train, y_test = y[:train_size], y[train_size:]
+ 
+# Обучение модели
+model = RandomForestRegressor(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+ 
+# Прогноз (использует реальные лаги -> аналог 1-шагового прогноза)
+predictions = model.predict(X_test)
+ 
+# Метрики
+mae  = mean_absolute_error(y_test, predictions)
+rmse = np.sqrt(mean_squared_error(y_test, predictions))
+mape = np.mean(np.abs((y_test.values - predictions)
+                      / y_test.values)) * 100
+print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}, MAPE: {mape:.2f}%")
+\end{lstlisting}
+ 
+\section*{Код предобработки данных}
+\label{app:prep}
+ 
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+ 
+# Загрузка исходных данных
+df = pd.read_csv("data/usd_uzs_daily.csv")
+df['date'] = pd.to_datetime(df['date'])
+df = df.sort_values('date')
+ 
+# Отсечение данных до либерализации рынка (сентябрь 2017)
+df = df[df['date'] >= '2017-09-05']
+ 
+# Проверка пропусков и дубликатов
+print("Пропуски:\n", df.isna().sum())
+print("Дубликаты:", df.duplicated().sum())
+ 
+# Формирование лаговых признаков (1..7)
+for lag in range(1, 8):
+    df[f'lag_{lag}'] = df['usd_uzs'].shift(lag)
+df = df.dropna()
+ 
+# Разделение и нормализация (scaler обучается только на train)
+train_size = int(len(df) * 0.8)
+train, test = df[:train_size], df[train_size:]
+scaler = MinMaxScaler()
+train_scaled = scaler.fit_transform(train[['usd_uzs']])
+test_scaled  = scaler.transform(test[['usd_uzs']])
+ 
+df.to_csv("data/processed_data.csv", index=False)
+print("Train size:", len(train), "Test size:", len(test))
+\end{lstlisting}
+ 
+\section*{Код построения совмещённого графика моделей}
+\label{app:plot}
+ 
+\begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+ 
+# Загрузка сохранённых прогнозов всех моделей
+arima_roll = pd.read_csv('results/arima_forecast.csv', parse_dates=['date'])
+arima_stat = pd.read_csv('results/arima_static_forecast.csv', parse_dates=['date'])
+lstm = pd.read_csv('results/lstm_forecast.csv', parse_dates=['date'])
+rf   = pd.read_csv('results/rf_forecast.csv', parse_dates=['date'])
+ 
+fig, ax = plt.subplots(figsize=(14, 6))
+ax.plot(arima_roll['date'], arima_roll['actual'], color='black',
+        linewidth=1.5, label='Реальный курс', zorder=5)
+ax.plot(arima_roll['date'], arima_roll['forecast'], label='ARIMA (rolling)')
+ax.plot(arima_stat['date'], arima_stat['forecast'], label='ARIMA (static)')
+ax.plot(lstm['date'], lstm['forecast'], label='LSTM')
+ax.plot(rf['date'], rf['forecast'], label='Random Forest')
+ 
+ax.set_xlabel('Дата'); ax.set_ylabel('Курс USD/UZS (сум)')
+ax.set_title('Сравнение прогнозов всех моделей на тестовой выборке')
+ax.legend(loc='upper left'); ax.grid(True, alpha=0.3)
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
+plt.xticks(rotation=45); plt.tight_layout()
+plt.savefig('plots/plot_all_models.png', dpi=200, bbox_inches='tight')
 \end{lstlisting}
