@@ -1,0 +1,19 @@
+% ─── Графики всех моделей ────────────────────────────────────────────────────
+\begin{frame}[shrink=10]{Визуальное сравнение прогнозов}
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth, height=0.78\textheight, keepaspectratio]{images/plot_all_models.png}
+  \end{figure}
+\begin{center}
+  \vspace{-0.1cm}
+  {\footnotesize
+    \textcolor{primary}{\textbf{LSTM}} точнее всех без переобучения \quad|\quad
+    \textcolor{orange}{\textbf{ARIMA static}} расходится с реальностью
+  }
+
+  \vspace{0.1cm}
+  {\footnotesize
+    \textcolor{blue}{\textbf{ARIMA rolling}} $\approx$ реальный курс
+  }
+\end{center}
+\end{frame}

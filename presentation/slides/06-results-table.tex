@@ -4,20 +4,26 @@
   \begin{center}
   \small
   \renewcommand{\arraystretch}{1.2}
-  \begin{tabular}{>{\bfseries}p{0.30\textwidth} p{0.15\textwidth} p{0.15\textwidth} p{0.15\textwidth}}
+  \begin{tabular}{
+>{\bfseries}p{0.25\textwidth}
+p{0.13\textwidth}
+p{0.13\textwidth}
+p{0.13\textwidth}
+p{0.13\textwidth}
+}
     \toprule
-    \textbf{Модель} & \textbf{MAE (сум)} & \textbf{RMSE (сум)} & \textbf{MAPE (\%)} \\
+    \textbf{Модель} & \textbf{MAE (сум)} & \textbf{MSE (сум$^2$)} & \textbf{RMSE (сум)} & \textbf{MAPE (\%)} \\
     \midrule
-    \multicolumn{4}{l}{\textit{\color{primary}С переобучением (rolling forecast)}} \\
+    \multicolumn{5}{l}{\textit{\color{primary}С переобучением (rolling forecast)}} \\
     \rowcolor{light}
-    ARIMA (rolling) & 19,05 & 28,55 & 0,15 \\
+    ARIMA (rolling) & 19,05 & 815,10 & 28,55 & 0,15 \\
     \midrule
-    \multicolumn{4}{l}{\textit{\color{primary}Без переобучения (однократное обучение)}} \\
+    \multicolumn{5}{l}{\textit{\color{primary}Без переобучения (однократное обучение)}} \\
     \rowcolor{success!10}
-    LSTM & 40,74 & 54,37 & \textcolor{success}{\textbf{0,33}} \\
-    Random Forest & 112,01 & 146,64 & 0,88 \\
+    LSTM & 40,74 & 2,956,10 & 54,37 & \textcolor{success}{\textbf{0,33}} \\
+    Random Forest & 112,01 & 21\,503,29 & 146,64 & 0,88 \\
     \rowcolor{light}
-    ARIMA (static) & 235,35 & 305,23 & 1,89 \\
+    ARIMA (static) & 235,35 & 93\,165,35 & 305,23 & 1,89 \\
     \bottomrule
   \end{tabular}
   \end{center}
