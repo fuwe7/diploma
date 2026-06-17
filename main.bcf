@@ -3540,17 +3540,21 @@
     <bcf:citekey order="1" intorder="2">enders2015</bcf:citekey>
     <bcf:citekey order="2" intorder="1">siami2018</bcf:citekey>
     <bcf:citekey order="2" intorder="2">nelson2017lstm</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">hamilton1994</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">makridakis2018</bcf:citekey>
     <bcf:citekey order="4" intorder="1">box2016</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">bishop2006</bcf:citekey>
-    <bcf:citekey order="5" intorder="2">goodfellow2016</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">breiman2001</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">hochreiter1997</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">cbu_rates</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">james2021</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">hyndman2021</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">hamilton1994</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">enders2015</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">hamilton1994</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">box2016</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">bishop2006</bcf:citekey>
+    <bcf:citekey order="9" intorder="2">goodfellow2016</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">breiman2001</bcf:citekey>
     <bcf:citekey order="11" intorder="1">hochreiter1997</bcf:citekey>
-    <bcf:citekey order="12" intorder="1" nocite="1">*</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">cbu_rates</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">james2021</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">hyndman2021</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">hochreiter1997</bcf:citekey>
+    <bcf:citekey order="16" intorder="1" nocite="1">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
