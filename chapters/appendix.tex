@@ -3,8 +3,10 @@
 \renewcommand{\thesection}{\Asbuk{section}}
 \setcounter{section}{0}
 
-\section*{Код модели LSTM}
+\section*{ПРИЛОЖЕНИЕ A. Код модели LSTM}
 \label{app:lstm}
+
+В данном приложении представлен программный код на языке Python, реализующий архитектуру рекуррентной нейронной сети долгой краткосрочной памяти (LSTM). Скрипт включает этапы загрузки данных, формирования временных последовательностей (скользящего окна), построения и обучения глубокой модели с использованием механизма ранней остановки, а также вычисления итоговых метрик качества.
 
 \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
 import pandas as pd
@@ -85,8 +87,10 @@ mape = np.mean(np.abs(
 print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}, MAPE: {mape:.2f}%")
 \end{lstlisting}
 
-\section*{Код модели ARIMA (rolling forecast)}
+\section*{ПРИЛОЖЕНИЕ Б. Код модели ARIMA (rolling forecast)}
 \label{app:arima_rolling}
+
+В данном приложении приведен исходный код, реализующий классическую статистическую модель ARIMA в режиме скользящего прогнозирования (rolling forecast). Код демонстрирует автоматический подбор гиперпараметров по информационному критерию Акаике (AIC) и алгоритм пошагового переобучения модели на каждом новом фактическом наблюдении.
  
 \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
 import pandas as pd
@@ -132,8 +136,10 @@ mape = np.mean(np.abs((test_series.values - forecast.values)
 print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}, MAPE: {mape:.2f}%")
 \end{lstlisting}
  
-\section*{Код модели ARIMA (static, без переобучения)}
+\section*{ПРИЛОЖЕНИЕ В. Код модели ARIMA (static, без переобучения)}
 \label{app:arima_static}
+
+Данное приложение содержит фрагмент программного кода, реализующий построение статического прогноза с помощью модели ARIMA. В отличие от метода скользящего окна, в данном скрипте алгоритм обучается строго один раз на тренировочной выборке и формирует многошаговый прогноз на весь тестовый период без обновления внутренних параметров.
  
 \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
 import pandas as pd
@@ -168,8 +174,10 @@ mape = np.mean(np.abs((test_series.values - forecast.values)
 print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}, MAPE: {mape:.2f}%")
 \end{lstlisting}
  
-\section*{Код модели Random Forest}
+\section*{ПРИЛОЖЕНИЕ Г. Код модели Random Forest}
 \label{app:rf}
+
+В приложении представлен код обучения ансамблевой модели машинного обучения Random Forest. Скрипт включает процедуру выделения признакового пространства на основе исторических лагов, инициализацию ансамбля деревьев решений и последующую оценку точности полученного одношагового прогноза.
  
 \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
 import pandas as pd
@@ -206,8 +214,10 @@ mape = np.mean(np.abs((y_test.values - predictions)
 print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}, MAPE: {mape:.2f}%")
 \end{lstlisting}
  
-\section*{Код предобработки данных}
+\section*{ПРИЛОЖЕНИЕ Д. Код предобработки данных}
 \label{app:prep}
+
+В данном приложении содержится скрипт предварительной обработки эмпирических данных для последующего обучения алгоритмов. В коде реализованы процедуры отсечения исторического периода до либерализации валютного рынка, проверка на наличие пропусков, генерация лаговых признаков и минимаксное масштабирование (нормализация) значений временного ряда.
  
 \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
 import pandas as pd
@@ -241,8 +251,10 @@ df.to_csv("data/processed_data.csv", index=False)
 print("Train size:", len(train), "Test size:", len(test))
 \end{lstlisting}
  
-\section*{Код построения совмещённого графика моделей}
+\section*{ПРИЛОЖЕНИЕ Е. Код построения совмещённого графика моделей}
 \label{app:plot}
+
+Данное приложение включает скрипт на языке Python, предназначенный для агрегации полученных результатов прогнозирования. Код обеспечивает считывание сохраненных CSV-файлов и визуализацию траекторий всех исследуемых моделей поверх фактического графика валютного курса с использованием библиотеки Matplotlib.
  
 \begin{lstlisting}[language=Python, basicstyle=\small\ttfamily, breaklines=true]
 import pandas as pd
@@ -270,3 +282,6 @@ ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
 plt.xticks(rotation=45); plt.tight_layout()
 plt.savefig('plots/plot_all_models.png', dpi=200, bbox_inches='tight')
 \end{lstlisting}
+
+\vspace{1em}
+Представленные в Приложениях А–Е фрагменты программного кода составляют основу вычислительной и практической реализации данного исследования. Разработанный комплекс скриптов образует полноценный аналитический пайплайн: от первичной загрузки и нормализации исторических данных до обучения нейросетевых архитектур и визуализации итоговых прогнозов. Полный исходный код проекта, а также использованные наборы данных доступны для детального ознакомления и полного воспроизведения проведенных экспериментов в открытом репозитории по адресу: \url{https://github.com/fuwe7/diploma}.
