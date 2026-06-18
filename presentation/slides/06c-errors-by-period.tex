@@ -1,0 +1,61 @@
+% ─── Анализ ошибок по периодам (MAE по полугодиям) ─────────────────────────
+\begin{frame}{Где модели ошибаются больше: MAE по полугодиям}
+
+  \begin{columns}[T]
+    % ─── Левая колонка: таблица ──────────────────────────────────────────
+    \column{0.55\textwidth}
+    \scriptsize
+    \renewcommand{\arraystretch}{1.35}
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{>{\bfseries}lccccc}
+      \toprule
+      \textbf{Период} &
+      \makecell{\textbf{ARIMA}\\\textbf{static}} &
+      \textbf{RF} &
+      \textbf{LSTM} &
+      \makecell{\textbf{ARIMA}\\\textbf{roll.}} &
+      \makecell{\textbf{Вол-}\\\textbf{ть}} \\
+      \midrule
+      1-е пг 2024$^{*}$ & 40  & 29  & 33 & 13 & 13,1 \\
+      \rowcolor{light}
+      2-е пг 2024       & 117 & 84  & 25 & 11 & 10,6 \\
+      1-е пг 2025       & 268 & 220 & 37 & 16 & 15,4 \\
+      \rowcolor{light}
+      2-е пг 2025       & 382 & 59  & 62 & 32 & 32,2 \\
+      \bottomrule
+    \end{tabular}
+
+    \vspace{0.25cm}
+    {\tiny $^{*}$с апреля 2024 г.\quad MAE в сумах; «Вол-ть» --- средний модуль дневного изменения курса (сум/день).}
+
+    % ─── Правая колонка: диаграмма ───────────────────────────────────────
+    \column{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[
+        ybar, bar width=6pt,
+        width=\textwidth, height=4.6cm,
+        enlarge x limits=0.18,
+        symbolic x coords={1п24, 2п24, 1п25, 2п25},
+        xtick=data,
+        x tick label style={font=\tiny},
+        ylabel={MAE, сум}, ylabel style={font=\tiny},
+        yticklabel style={font=\tiny}, ymin=0, ymax=420,
+        legend style={font=\tiny, at={(0.5,1.12)}, anchor=south, legend columns=2, draw=none},
+        nodes near coords, nodes near coords style={font=\tiny},
+        every node near coord/.append style={anchor=south},
+      ]
+        \addplot[fill=danger!70, draw=danger]   coordinates {(1п24,40)(2п24,117)(1п25,268)(2п25,382)};
+        \addplot[fill=success!70, draw=success] coordinates {(1п24,33)(2п24,25)(1п25,37)(2п25,62)};
+        \legend{ARIMA static, LSTM}
+      \end{axis}
+    \end{tikzpicture}
+
+    {\tiny\color{mygray}ARIMA static растёт с горизонтом, LSTM держит точность.}
+  \end{columns}
+
+  \vspace{0.2cm}
+  \begin{tcolorbox}[infobox]
+    \small \textbf{Вывод:} ошибки концентрируются в периоды повышенной волатильности. Модели со свежими данными (ARIMA rolling, RF) и нейросеть LSTM держат точность, тогда как статическая ARIMA деградирует с ростом горизонта прогноза (40\,$\to$\,382 сум).
+  \end{tcolorbox}
+\end{frame}
